@@ -14,6 +14,7 @@ import {
   PageTitle,
   PrimaryButton,
 } from "../../components";
+import { getLandscapeLayout } from "../../utils";
 
 const { secondary500 } = Colors;
 
@@ -24,6 +25,8 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
   const [enteredNumber, setEnteredNumber] = useState("");
 
   const { height } = useWindowDimensions();
+  const isLandscape = getLandscapeLayout(height);
+
   const numberInputHandler = (enteredText: string) => {
     const numberValue = enteredText.replace(/[^\d]/g, "");
     setEnteredNumber(numberValue);
@@ -46,7 +49,7 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
     onPickNumber(chosenNumber);
   };
 
-  const rootContainerMarginTopUpdated = height < 380 ? 30 : 50;
+  const rootContainerMarginTopUpdated = isLandscape ? 30 : 50;
 
   return (
     <View

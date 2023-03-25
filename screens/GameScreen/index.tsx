@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, useWindowDimensions } from "react-native";
 
+import { getLandscapeLayout } from "../../utils";
 import { PageTitle } from "../../components";
 import ControlsContainer from "./components/ControlsContainer";
 import GuessContainer from "./components/GuessContainer";
@@ -27,11 +28,10 @@ interface GameScreenProps {
 }
 
 function GameScreen({ pickedNumber, onGameOver }: GameScreenProps) {
-  const initialGuess = generateRandomBetween(
-    1,
-    100,
-    pickedNumber
-  );
+  const { height } = useWindowDimensions();
+  const isLandscape = getLandscapeLayout(height);
+
+  const initialGuess = generateRandomBetween(1, 100, pickedNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
@@ -76,14 +76,28 @@ function GameScreen({ pickedNumber, onGameOver }: GameScreenProps) {
     maxBoundary = 100;
   }, []);
 
-  return (
+  return isLandscape ? (
     <View style={styles.gameScreenContainer}>
       <PageTitle title="Opponent's Guess" />
 
+      <View style={{ flexDirection: "row", flex: 2, marginTop: 16 }}>
+        <GuessContainer currentGuess={currentGuess} />
+        <ControlsContainer
+          onNextGuess={nextGuessHandler}
+        />
+      </View>
+
+      <LogRounds
+        guessRounds={guessRounds}
+        guessRoundsListLength={guessRoundsListLength}
+        style={{ marginTop: 16 }}
+      />
+    </View>
+  ) : (
+    <View style={styles.gameScreenContainer}>
+      <PageTitle title="Opponent's Guess" />
       <GuessContainer currentGuess={currentGuess} />
-
       <ControlsContainer onNextGuess={nextGuessHandler} />
-
       <LogRounds
         guessRounds={guessRounds}
         guessRoundsListLength={guessRoundsListLength}
@@ -98,6 +112,6 @@ const styles = StyleSheet.create({
   gameScreenContainer: {
     flex: 1,
     padding: 24,
-    alignItems: 'center'
+    alignItems: "center",
   },
 });

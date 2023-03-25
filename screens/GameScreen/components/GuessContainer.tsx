@@ -1,6 +1,13 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 
 import { Colors } from "../../../helpers";
+import { getLandscapeLayout } from "../../../utils";
 
 const { secondary500 } = Colors;
 interface GuessProps {
@@ -8,8 +15,11 @@ interface GuessProps {
 }
 
 function GuessContainer({ currentGuess }: GuessProps) {
+  const { height } = useWindowDimensions();
+  const isLandscape = getLandscapeLayout(height);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isLandscape && { padding: 0, width: 150 }]}>
       <Text style={styles.numberText}>{currentGuess}</Text>
     </View>
   );

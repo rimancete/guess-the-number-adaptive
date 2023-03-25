@@ -5,17 +5,18 @@ import {
   StyleSheet,
   Text,
   View,
+  ViewProps,
 } from "react-native";
 import { Colors } from "../../../helpers";
 
 const { primary900, secondary500 } = Colors;
 
-interface LogRoundsProps {
+interface LogRoundsProps extends ViewProps {
   guessRounds: number[];
   guessRoundsListLength: number;
 }
 
-function LogRounds({ guessRounds, guessRoundsListLength }: LogRoundsProps) {
+function LogRounds({ guessRounds, guessRoundsListLength, style }: LogRoundsProps) {
   const renderItem = (itemData: ListRenderItemInfo<number>) => {
     const { item, index } = itemData;
     return (
@@ -29,7 +30,7 @@ function LogRounds({ guessRounds, guessRoundsListLength }: LogRoundsProps) {
   const keyExtractor = (item: number) => String(item);
 
   return (
-    <View style={styles.roundsContainer}>
+    <View style={[styles.roundsContainer, style]}>
       <FlatList
         data={guessRounds}
         renderItem={renderItem}
