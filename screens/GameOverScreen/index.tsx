@@ -1,7 +1,15 @@
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
-import { PageTitle, PrimaryButton } from "../../components";
+import { getLandscapeLayout } from "../../utils";
 import { Colors } from "../../helpers";
+import { PageTitle, PrimaryButton } from "../../components";
 
 const { primary900, primary500 } = Colors;
 
@@ -16,7 +24,50 @@ function GameOverScreen({
   userNumber,
   onStartNewGame,
 }: GameOverScreenProps) {
-  return (
+  const { height } = useWindowDimensions();
+  const isLandscape = getLandscapeLayout(height);
+
+  return isLandscape ? (
+    <View
+      style={[
+        styles.gameOverScreenContainer,
+        { marginHorizontal: 48 },
+      ]}
+    >
+      <PageTitle title="GAME OVER" />
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: 'center',
+          flex: 2,
+          margin: 8,
+        }}
+      >
+        <View
+          style={[
+            styles.imageContainer,
+            { width: 150, height: 150, margin: 0, borderRadius: 75 },
+          ]}
+        >
+          <Image
+            style={styles.image}
+            source={require("../../assets/images/success.png")}
+          />
+        </View>
+        <View style={{ justifyContent: "center", margin: 8 }}>
+          <Text style={styles.summaryText}>
+            Your phone needed{" "}
+            <Text style={styles.highlightText}>{roundsNumber}</Text> rounds to
+            guess the number{" "}
+            <Text style={styles.highlightText}>{userNumber}</Text>
+          </Text>
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
+      </View>
+    </View>
+  ) : (
     <View style={styles.gameOverScreenContainer}>
       <PageTitle title="GAME OVER" />
       <View style={styles.imageContainer}>
