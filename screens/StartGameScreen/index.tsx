@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  View,
-  Alert,
-  useWindowDimensions,
-} from "react-native";
+import { StyleSheet, TextInput, View, Alert } from "react-native";
 
 import { Colors } from "../../helpers";
 import {
@@ -14,7 +8,7 @@ import {
   PageTitle,
   PrimaryButton,
 } from "../../components";
-import { getLandscapeLayout } from "../../utils";
+import RootView from "./components/RootView";
 
 const { secondary500 } = Colors;
 
@@ -23,9 +17,6 @@ interface StartGameScreenProps {
 }
 function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
   const [enteredNumber, setEnteredNumber] = useState("");
-
-  const { height } = useWindowDimensions();
-  const isLandscape = getLandscapeLayout(height);
 
   const numberInputHandler = (enteredText: string) => {
     const numberValue = enteredText.replace(/[^\d]/g, "");
@@ -49,15 +40,8 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
     onPickNumber(chosenNumber);
   };
 
-  const rootContainerMarginTopUpdated = isLandscape ? 30 : 50;
-
   return (
-    <View
-      style={[
-        styles.rootContainer,
-        { marginTop: rootContainerMarginTopUpdated },
-      ]}
-    >
+    <RootView>
       <PageTitle title="Guess My Number" />
       <CardBox>
         <CustomText>Enter a Number</CustomText>
@@ -75,20 +59,13 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
           <PrimaryButton onPress={confirmButtonHandler}>Confirm</PrimaryButton>
         </View>
       </CardBox>
-    </View>
+    </RootView>
   );
 }
 
 export default StartGameScreen;
 
-// const deviceHeigth = Dimensions.get('window').height
-
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    // marginTop: deviceHeigth < 380 ? 30: 50,
-    alignItems: "center",
-  },
   input: {
     fontFamily: "open-sans-bold",
     height: 50,
