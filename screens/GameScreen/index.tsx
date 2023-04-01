@@ -80,17 +80,17 @@ function GameScreen({ pickedNumber, onGameOver }: GameScreenProps) {
     <View style={styles.gameScreenContainer}>
       <PageTitle title="Opponent's Guess" />
 
-      <View style={{ flexDirection: "row", flex: 2, marginTop: 16 }}>
-        <GuessContainer currentGuess={currentGuess} />
+      <View style={{ flex: 2 }}>
         <ControlsContainer
           onNextGuess={nextGuessHandler}
+          GuessContainerComponent={() => <GuessContainer currentGuess={currentGuess} />}
         />
       </View>
 
       <LogRounds
         guessRounds={guessRounds}
         guessRoundsListLength={guessRoundsListLength}
-        style={{ marginTop: 16 }}
+        // style={{ marginTop: 16 }}
       />
     </View>
   ) : (

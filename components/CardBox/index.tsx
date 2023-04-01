@@ -5,11 +5,7 @@ import { Colors } from "../../helpers";
 
 const { primary900 } = Colors;
 
-interface CardBoxProps extends ViewProps {
-  children: ReactNode;
-}
-
-function CardBox({ children, style }: CardBoxProps) {
+function CardBox({ children, style }: ViewProps) {
   return <View style={[styles.cardContainer, style]}>{children}</View>;
 }
 

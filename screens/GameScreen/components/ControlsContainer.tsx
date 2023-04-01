@@ -9,9 +9,13 @@ import CardBox from "../../../components/CardBox";
 const { light500 } = Colors;
 interface ControlsContainerProps {
   onNextGuess: (direction: "greater" | "lower") => void;
+  GuessContainerComponent?: () => JSX.Element;
 }
 
-function ControlsContainer({ onNextGuess }: ControlsContainerProps) {
+function ControlsContainer({
+  onNextGuess,
+  GuessContainerComponent,
+}: ControlsContainerProps) {
   const { height } = useWindowDimensions();
   const isLandscape = getLandscapeLayout(height);
 
@@ -19,19 +23,35 @@ function ControlsContainer({ onNextGuess }: ControlsContainerProps) {
     onNextGuess(direction);
   };
 
-  return (
-    <CardBox style={isLandscape && { marginTop: 0, justifyContent: 'space-between' }}>
-      <CustomText>Higher or Lower?</CustomText>
-      <View style={styles.buttonsContainer}>
-        <PrimaryButton onPress={() => onNextGuessHandler("greater")}>
-          <Ionicons name="md-add" size={24} style={styles.icon} />
-        </PrimaryButton>
-        <PrimaryButton onPress={() => onNextGuessHandler("lower")}>
-          <Ionicons name="md-remove" size={24} style={styles.icon} />
-        </PrimaryButton>
-      </View>
-    </CardBox>
-  );
+  const renderControlsContainer = () =>
+    isLandscape ? (
+      <CardBox style={{ width: "100%", marginTop: 8 }}>
+        <CustomText>Higher or Lower?</CustomText>
+        <View style={[styles.buttonsContainer, { alignItems: 'center'}]}>
+          <PrimaryButton onPress={() => onNextGuessHandler("greater")}>
+            <Ionicons name="md-add" size={24} style={styles.icon} />
+          </PrimaryButton>
+          {GuessContainerComponent && GuessContainerComponent()}
+          <PrimaryButton onPress={() => onNextGuessHandler("lower")}>
+            <Ionicons name="md-remove" size={24} style={styles.icon} />
+          </PrimaryButton>
+        </View>
+      </CardBox>
+    ) : (
+      <CardBox>
+        <CustomText>Higher or Lower?</CustomText>
+        <View style={styles.buttonsContainer}>
+          <PrimaryButton onPress={() => onNextGuessHandler("greater")}>
+            <Ionicons name="md-add" size={24} style={styles.icon} />
+          </PrimaryButton>
+          <PrimaryButton onPress={() => onNextGuessHandler("lower")}>
+            <Ionicons name="md-remove" size={24} style={styles.icon} />
+          </PrimaryButton>
+        </View>
+      </CardBox>
+    );
+
+  return renderControlsContainer();
 }
 
 export default ControlsContainer;

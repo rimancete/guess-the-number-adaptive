@@ -28,17 +28,12 @@ function GameOverScreen({
   const isLandscape = getLandscapeLayout(height);
 
   return isLandscape ? (
-    <View
-      style={[
-        styles.gameOverScreenContainer,
-        { marginHorizontal: 48 },
-      ]}
-    >
+    <View style={[styles.gameOverScreenContainer, { marginHorizontal: 48 }]}>
       <PageTitle title="GAME OVER" />
       <View
         style={{
           flexDirection: "row",
-          alignItems: 'center',
+          alignItems: "center",
           flex: 2,
           margin: 8,
         }}
@@ -68,9 +63,18 @@ function GameOverScreen({
       </View>
     </View>
   ) : (
-    <View style={styles.gameOverScreenContainer}>
+    <View style={[styles.gameOverScreenContainer, {paddingVertical: 0, paddingHorizontal: 16}]}>
       <PageTitle title="GAME OVER" />
-      <View style={styles.imageContainer}>
+      <View
+        style={[
+          styles.imageContainer,
+          {
+            width: isLandscape ? 150 : 300,
+            height: isLandscape ? 150 : 300,
+            borderRadius: isLandscape ? 75 : 150,
+          },
+        ]}
+      >
         <Image
           style={styles.image}
           source={require("../../assets/images/success.png")}

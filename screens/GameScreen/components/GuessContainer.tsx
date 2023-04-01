@@ -19,7 +19,17 @@ function GuessContainer({ currentGuess }: GuessProps) {
   const isLandscape = getLandscapeLayout(height);
 
   return (
-    <View style={[styles.container, isLandscape && { padding: 0, width: 150 }]}>
+    <View
+      style={[
+        styles.container,
+        isLandscape && {
+          padding: 0,
+          marginHorizontal: 12,
+          marginVertical: 0,
+          width: 150,
+        },
+      ]}
+    >
       <Text style={styles.numberText}>{currentGuess}</Text>
     </View>
   );
