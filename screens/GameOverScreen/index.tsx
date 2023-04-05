@@ -1,5 +1,4 @@
 import {
-  Dimensions,
   Image,
   StyleSheet,
   Text,
@@ -94,7 +93,7 @@ function GameOverScreen({
 
 export default GameOverScreen;
 
-const deviceWidth = Dimensions.get("window").width;
+// const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   gameOverScreenContainer: {
@@ -104,9 +103,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imageContainer: {
-    width: deviceWidth < 380 ? 150 : 300,
-    height: deviceWidth < 380 ? 150 : 300,
-    borderRadius: deviceWidth < 75 ? 150 : 300,
+    // width: deviceWidth < 380 ? 150 : 300,
+    // height: deviceWidth < 380 ? 150 : 300,
+    // borderRadius: deviceWidth < 75 ? 150 : 300,
     borderWidth: 3,
     borderColor: primary900,
     overflow: "hidden",

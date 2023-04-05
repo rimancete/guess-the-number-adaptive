@@ -16,6 +16,7 @@ function RootView({ children }: ViewProps) {
   const rootContainerMarginTopUpdated = isLandscape ? 30 : 50;
 
   const renderRootContainer = () =>
+    // Platform.select({ ios: <h1>I'm ios</>, android: <h1>I'm android</h1:})
     Platform.OS === "ios" ? (
       <ScrollView style={styles.screen}>
         <KeyboardAvoidingView
